@@ -1,5 +1,7 @@
 require('./config/config')
 const express = require('express')
+const mongoose = require('mongoose');
+
 var bodyParser = require('body-parser')
 const app = express()
 
@@ -8,31 +10,17 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
- 
-app.get('/usuario', function (req, res) {
-  res.json('get usuario');
-})
-app.post('/usuario', function (req, res) {
-  let body = req.body;
-  if (body.nombre === undefined) {
-      res.status(400).json({
-          ok:false,
-          mensaje:'El nombre es necesario'
-      })
-  }else{
-      res.json({
-          persona:body
-      });
+app.use(require('./routes/usuario'));
 
-  }
-})
-app.put('/usuario/:id', function (req, res) {
-  let id = req.params.id;
-  res.json('put usuario'+id);
-})
-app.delete('/usuario', function (req, res) {
-  res.json('delete usuario');
-})
+
+
+mongoose.connect(process.env.URLDB,{useNewUrlParser: true, useUnifiedTopology: true}, (err,res) => {
+  //mongodb+srv://rolando:rolando123@cluster0.i9h1x.mongodb.net/cafe?retryWrites=true&w=majority
+  //mongodb://localhost:27017/cafe
+  if (err) throw err;
+  console.log(`Conectado a Mongo!! `);
+
+});
 app.listen(process.env.PORT,()=> {
     console.log(`Escuchando en el puerto ${process.env.PORT} `);
 })
