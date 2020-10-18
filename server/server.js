@@ -5,12 +5,13 @@ const mongoose = require('mongoose');
 var bodyParser = require('body-parser')
 const app = express()
 
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(require('./routes/usuario'));
+app.use(require('./routes/index'))
 
 
 
