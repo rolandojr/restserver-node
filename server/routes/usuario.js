@@ -15,9 +15,9 @@ app.get('/usuario',verificaToken,  (req, res) => {
     limite = Number(limite);
 
 
-    Usuario.find({estado:true})
+    Usuario.find({})
             .skip(desde)
-            .limit(5)
+            .limit(limite)
             .exec((err,usuarios)=> {
                 if (err) 
                     return  res.status(400).json({
@@ -25,7 +25,7 @@ app.get('/usuario',verificaToken,  (req, res) => {
                             err
                         })
                     
-                 Usuario.count({estado:true},(error,count)=>{
+                 Usuario.count({},(error,count)=>{
                     if (err) {
                         return  res.status(500).json({
                             ok: false,
