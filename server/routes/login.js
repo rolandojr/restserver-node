@@ -57,7 +57,6 @@ async function verify(token) {
     }
 }
 
-
 app.post("/google", async (req, res) => {
     let body = req.body;
     let token = body.idtoken;
